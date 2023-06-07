@@ -1,11 +1,13 @@
 import { Navigate } from "react-router";
 import { useAuthProvider } from "../../../hooks/useAuthProvider";
+import { Loading } from "../../../components/Loading";
 
-export const ProtectedRoute = () => {
+// eslint-disable-next-line react/prop-types
+export const ProtectedRoute = ({ children }) => {
   const { user, loading } = useAuthProvider();
 
-  if (loading) return <div>loading ...</div>;
+  if (loading) return <Loading />;
   if (!user) return <Navigate to="/login" />;
 
-  return <div>ProtectedRoute</div>;
+  return <>{children}</>;
 };

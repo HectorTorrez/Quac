@@ -21,8 +21,6 @@ export const Register = () => {
     setUser({ ...user, [name]: value });
   };
 
-  console.log(user);
-
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
