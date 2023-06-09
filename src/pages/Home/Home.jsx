@@ -9,8 +9,11 @@ export const Home = () => {
   const [message, setMessage] = useState("");
 
   const { data } = useQuacProvider();
+  console.log(message);
 
   const addMessage = async () => {
+    if (message === "") return;
+
     try {
       await addDoc(collection(db, "quacs"), {
         createAt: serverTimestamp(),
@@ -20,26 +23,32 @@ export const Home = () => {
     } catch (error) {
       console.log(error);
     }
+    setMessage("");
   };
   return (
     <section className="flex flex-col items-center  h-screen  ">
-      <Navbar />
-      <section className="mt-20 flex w-full p-5 md:p-0 md:w-1/2 justify-center max-w-3xl">
-        <input
-          className="  w-full outline-none border-none lg:text-xl  "
-          type="text"
-          placeholder="Write your Quac"
-          onChange={(e) => setMessage(e.target.value)}
-          maxLength={144}
-        />
-        <button
-          onClick={addMessage}
-          className="bg-buttons text-xl py-2 rounded-md hover:opacity-70 px-5 lg:px-10"
-        >
-          POST
-        </button>
+      <Navbar
+        user={auth.currentUser.displayName}
+        img={auth.currentUser.photoURL}
+      />
+      <section className="max-w-md w-full  mt-8">
+        <section className="flex w-full">
+          <input
+            value={message}
+            type="text"
+            className="w-full border border-gray-300 rounded-l-md py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            placeholder="Add a quac"
+            onChange={(e) => setMessage(e.target.value)}
+          />
+          <button
+            onClick={addMessage}
+            className="bg-buttons hover:bg-button-600 text-black font-semibold rounded-r-md py-2 px-4 ml-2"
+          >
+            POST
+          </button>
+        </section>
       </section>
-      <section className="flex mt-10 items-center align-middle w-full md:w-1/2 p-5 md:p-0 max-w-3xl">
+      <section className="flex flex-col gap-10  mt-10 items-center align-middle w-full md:w-1/2 p-5 md:p-0 max-w-3xl">
         {data?.map((d) => (
           <QuacText key={d.id} d={d} img={auth.currentUser.photoURL} />
         ))}

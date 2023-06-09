@@ -8,6 +8,7 @@ export const Login = () => {
     email: "",
     password: "",
   });
+
   const { login, loginWithGoogle } = useAuthProvider();
 
   const navigate = useNavigate();
@@ -17,7 +18,7 @@ export const Login = () => {
       await login(user.email, user.password);
       navigate("/");
     } catch (error) {
-      console.log(error);
+      throw new Error(error.message);
     }
   };
 
@@ -26,7 +27,7 @@ export const Login = () => {
       await loginWithGoogle();
       navigate("/");
     } catch (error) {
-      console.log(error);
+      throw new Error(error.message);
     }
   };
 
