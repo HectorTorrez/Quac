@@ -27,6 +27,8 @@ export const QuacProvider = ({ children }) => {
     return () => unsubcribe();
   }, []);
 
+  console.log(data);
+
   const handleDelete = async (id) => {
     const confirmQuac = confirm("Are you sure you want to delete this quac?");
     if (!confirmQuac) return;

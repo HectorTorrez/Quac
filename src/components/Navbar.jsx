@@ -18,7 +18,7 @@ export const Navbar = ({ user, img }) => {
   };
 
   return (
-    <nav className="bg-white mt-3 max-w-md lg:w-1/2 ">
+    <nav className="bg-white mt-3 w-full max-w-md lg:w-1/2 ">
       <section className="max-w-7xl mx-auto   ">
         <section className="flex items-center justify-between h-16">
           <section className="flex items-center">

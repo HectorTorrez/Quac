@@ -9,7 +9,12 @@ export const Home = () => {
   const [message, setMessage] = useState("");
 
   const { data } = useQuacProvider();
-  console.log(message);
+
+  const handleEnter = async (event) => {
+    if (event.key === "Enter") {
+      await addMessage();
+    }
+  };
 
   const addMessage = async () => {
     if (message === "") return;
@@ -19,12 +24,14 @@ export const Home = () => {
         createAt: serverTimestamp(),
         text: message,
         user: auth.currentUser.displayName,
+        like: false,
       });
     } catch (error) {
       console.log(error);
     }
     setMessage("");
   };
+
   return (
     <section className="flex flex-col items-center  h-screen  ">
       <Navbar
@@ -39,6 +46,7 @@ export const Home = () => {
             className="w-full border border-gray-300 rounded-l-md py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             placeholder="Add a quac"
             onChange={(e) => setMessage(e.target.value)}
+            onKeyDown={handleEnter}
           />
           <button
             onClick={addMessage}
@@ -48,9 +56,14 @@ export const Home = () => {
           </button>
         </section>
       </section>
-      <section className="flex flex-col gap-10  mt-10 items-center align-middle w-full md:w-1/2 p-5 md:p-0 max-w-3xl">
+      <section className="flex flex-col-reverse gap-10  mt-10 items-center align-middle w-full md:w-1/2 p-5 md:p-0 max-w-3xl">
         {data?.map((d) => (
-          <QuacText key={d.id} d={d} img={auth.currentUser.photoURL} />
+          <QuacText
+            key={d.id}
+            d={d}
+            img={auth.currentUser.photoURL}
+            userId={auth.currentUser.email}
+          />
         ))}
       </section>
     </section>
