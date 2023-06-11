@@ -27,15 +27,18 @@ export const QuacProvider = ({ children }) => {
     return () => unsubcribe();
   }, []);
 
-  console.log(data);
-
   const handleDelete = async (id) => {
+    // data.map((d) => {
+    //   setUserQuac(d.userId);
+    // });
+
+    // if (user !== userQuac) return;
     const confirmQuac = confirm("Are you sure you want to delete this quac?");
     if (!confirmQuac) return;
     try {
       await deleteDoc(doc(db, "quacs", id));
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 

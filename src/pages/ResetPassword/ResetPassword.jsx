@@ -20,7 +20,7 @@ export const ResetPassword = () => {
       await resetPassword(emailReset);
       navigate("/");
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 

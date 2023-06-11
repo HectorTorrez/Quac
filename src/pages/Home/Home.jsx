@@ -24,7 +24,8 @@ export const Home = () => {
         createAt: serverTimestamp(),
         text: message,
         user: auth.currentUser.displayName,
-        like: false,
+        userId: auth.currentUser.uid,
+        likes: {},
       });
     } catch (error) {
       console.log(error);

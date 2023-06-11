@@ -1,30 +1,43 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useQuacProvider } from "../../../hooks/useQuacProvider";
 import { faFeather, faTrash } from "@fortawesome/free-solid-svg-icons";
-import { doc, updateDoc } from "firebase/firestore";
-import { db } from "../../../firebase";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { auth, db } from "../../../firebase";
+import { useState } from "react";
 
 // eslint-disable-next-line react/prop-types
 export const QuacText = ({ d, img }) => {
   // eslint-disable-next-line react/prop-types
-  const { text, user, id, quacs, like } = d;
+  const { text, user, id, likes, userId } = d;
+  const [likeCount, setLikeCount] = useState(Object.keys(likes).length);
 
-  console.log(d);
   const { handleDelete } = useQuacProvider();
 
-  const handleLike = async (id) => {
+  const handleLike = async (quacId) => {
+    const userId = auth.currentUser.email;
     try {
-      if (like === false) {
-        await updateDoc(doc(db, "quacs", id), {
-          like: true,
+      const quacRef = doc(db, "quacs", quacId);
+      const quacDoc = await getDoc(quacRef);
+      const quacData = quacDoc.data();
+
+      if (quacData.likes && quacData.likes[userId]) {
+        const updatedLikes = { ...quacData.likes };
+        delete updatedLikes[userId];
+
+        await updateDoc(quacRef, {
+          likes: updatedLikes,
         });
+
+        setLikeCount(likeCount - 1);
       } else {
-        await updateDoc(doc(db, "quacs", id), {
-          like: false,
+        await updateDoc(quacRef, {
+          likes: { ...quacData.likes, [userId]: true },
         });
+
+        setLikeCount(likeCount + 1);
       }
     } catch (error) {
-      console.log(error);
+      console.error("Like error ", error);
     }
   };
 
@@ -37,12 +50,14 @@ export const QuacText = ({ d, img }) => {
             <p className="font-bold">{user}</p>
           </section>
           <section>
-            <button
-              className="text-red-500 font-bold"
-              onClick={() => handleDelete(id)}
-            >
-              <FontAwesomeIcon icon={faTrash} /> Delete
-            </button>
+            {userId === auth.currentUser.uid && (
+              <button
+                className="text-red-500 font-bold"
+                onClick={() => handleDelete(id)}
+              >
+                <FontAwesomeIcon icon={faTrash} />
+              </button>
+            )}
           </section>
         </section>
       </section>
@@ -54,16 +69,21 @@ export const QuacText = ({ d, img }) => {
         >
           <FontAwesomeIcon
             icon={faFeather}
-            className={`${like ? "text-secondary h-5" : "text-black h-5"}`}
+            className={`${
+              likes[auth.currentUser.email]
+                ? "text-secondary h-5"
+                : "text-black h-5"
+            }`}
           />
           <p
             className={`${
-              like
+              likes[auth.currentUser.email]
                 ? "text-secondary font-medium self-end h-5"
-                : "text-transparent font-medium self-end"
+                : "h-5 font-medium self-end"
             }`}
           >
-            {like ? "Quac" : "     "}
+            {/* {likes[auth.currentUser.email] ? "" : "     "} */}
+            {Object.keys(likes).length}
           </p>
         </button>
         {/* <svg
