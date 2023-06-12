@@ -2,10 +2,14 @@ import { useNavigate } from "react-router";
 import { useAuthProvider } from "../hooks/useAuthProvider";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
+import ReactNiceAvatar, { genConfig } from "react-nice-avatar";
+import { avatarConfig } from "../helpers/avatarConfig";
 
 // eslint-disable-next-line react/prop-types
 export const Navbar = ({ user, img }) => {
   const { Logout } = useAuthProvider();
+
+  const myConfig = genConfig(avatarConfig);
 
   const navigate = useNavigate();
   const handleLogout = async () => {
@@ -22,7 +26,14 @@ export const Navbar = ({ user, img }) => {
       <section className="max-w-7xl mx-auto   ">
         <section className="flex items-center justify-between h-16">
           <section className="flex items-center">
-            <img src={img} alt="photo" className="w-10 h-10 rounded-full" />
+            {img ? (
+              <img src={img} alt="photo" className="w-10 h-10 rounded-full" />
+            ) : (
+              <ReactNiceAvatar
+                style={{ width: "5rem", height: "5rem" }}
+                {...myConfig}
+              />
+            )}
             <span className="ml-2 text-black font-semibold text-lg">
               {user}
             </span>

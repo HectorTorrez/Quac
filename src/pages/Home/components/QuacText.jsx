@@ -5,6 +5,9 @@ import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { auth, db } from "../../../firebase";
 import { useState } from "react";
 
+import ReactNiceAvatar, { genConfig } from "react-nice-avatar";
+import { avatarConfig } from "../../../helpers/avatarConfig";
+
 // eslint-disable-next-line react/prop-types
 export const QuacText = ({ d, img }) => {
   // eslint-disable-next-line react/prop-types
@@ -12,6 +15,8 @@ export const QuacText = ({ d, img }) => {
   const [likeCount, setLikeCount] = useState(Object.keys(likes).length);
 
   const { handleDelete } = useQuacProvider();
+
+  const myConfig = genConfig(avatarConfig);
 
   const handleLike = async (quacId) => {
     const userId = auth.currentUser.email;
@@ -44,7 +49,14 @@ export const QuacText = ({ d, img }) => {
   return (
     <section className="max-w-md  bg-white shadow-md rounded-md p-4 w-full">
       <section className="flex space-x-4  ">
-        <img src={img} alt="photo" className="w-12 h-12 rounded-full" />
+        {img ? (
+          <img src={img} alt="photo" className="w-12 h-12 rounded-full" />
+        ) : (
+          <ReactNiceAvatar
+            style={{ width: "5rem", height: "5rem" }}
+            {...myConfig}
+          />
+        )}
         <section className="flex justify-between w-full items-center">
           <section className="flex flex-col">
             <p className="font-bold">{user}</p>
