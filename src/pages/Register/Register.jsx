@@ -3,6 +3,8 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuthProvider } from "../../hooks/useAuthProvider";
 import { Alert } from "../../components/Alert";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons";
 
 export const Register = () => {
   const [user, setUser] = useState({
@@ -52,7 +54,7 @@ export const Register = () => {
             htmlFor="email"
             className=" bg-white rounded-md flex items-center justify-center pl-2"
           >
-            👀
+            <FontAwesomeIcon icon={faEnvelope} />
             <input
               onChange={handleChange}
               className="p-2  w-full outline-none border-none lg:text-xl"
@@ -65,7 +67,7 @@ export const Register = () => {
             htmlFor="password"
             className="bg-white rounded-md flex items-center justify-center pl-2"
           >
-            👀
+            <FontAwesomeIcon icon={faLock} />
             <input
               onChange={handleChange}
               className="p-2  w-full outline-none border-none lg:text-xl "

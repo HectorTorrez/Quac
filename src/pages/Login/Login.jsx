@@ -2,6 +2,8 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useAuthProvider } from "../../hooks/useAuthProvider";
 import { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons";
 
 export const Login = () => {
   const [user, setUser] = useState({
@@ -45,12 +47,12 @@ export const Login = () => {
           </p>
         </section>
 
-        <section className="flex  flex-col gap-10 w-4/5 ">
+        <section className="flex justify-center flex-col gap-10 w-4/5 ">
           <label
             htmlFor="email"
             className=" bg-white rounded-md flex items-center justify-center pl-2"
           >
-            👀
+            <FontAwesomeIcon icon={faEnvelope} />
             <input
               className="p-2  w-full outline-none border-none lg:text-xl"
               type="email"
@@ -63,7 +65,7 @@ export const Login = () => {
             htmlFor="password"
             className="bg-white rounded-md flex items-center justify-center pl-2"
           >
-            👀
+            <FontAwesomeIcon icon={faLock} />
             <input
               className="p-2  w-full outline-none border-none lg:text-xl "
               type="password"
