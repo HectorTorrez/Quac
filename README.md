@@ -3,7 +3,7 @@ This project starts with the idea of creating a social media to write and share 
 
 Link to project: https://quac.netlify.app/
 
-[Quac](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNWQwNmI5YWI2OTM3Yzg5MTc4MjUzZjg3NmQ0OTBmNDM4Y2MwNjY5MiZlcD12MV9pbnRlcm5hbF9naWZzX2dpZklkJmN0PWc/Twho8KljFSPdMUhtOs/giphy.gif)
+![Quac](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNWQwNmI5YWI2OTM3Yzg5MTc4MjUzZjg3NmQ0OTBmNDM4Y2MwNjY5MiZlcD12MV9pbnRlcm5hbF9naWZzX2dpZklkJmN0PWc/Twho8KljFSPdMUhtOs/giphy.gif)
 
 How It's Made:
 Tech used:  JavaScript, React, TailwindCSS, Firebase
