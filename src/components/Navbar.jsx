@@ -6,7 +6,7 @@ import ReactNiceAvatar, { genConfig } from "react-nice-avatar";
 import { avatarConfig } from "../helpers/avatarConfig";
 
 // eslint-disable-next-line react/prop-types
-export const Navbar = ({ user, img }) => {
+export const Navbar = ({ user, userImg }) => {
   const { Logout } = useAuthProvider();
 
   const myConfig = genConfig(avatarConfig);
@@ -26,8 +26,12 @@ export const Navbar = ({ user, img }) => {
       <section className="max-w-7xl mx-auto   ">
         <section className="flex items-center justify-between h-16">
           <section className="flex items-center">
-            {img ? (
-              <img src={img} alt="photo" className="w-10 h-10 rounded-full" />
+            {userImg ? (
+              <img
+                src={userImg}
+                alt="photo"
+                className="w-10 h-10 rounded-full"
+              />
             ) : (
               <ReactNiceAvatar
                 style={{ width: "5rem", height: "5rem" }}
@@ -35,7 +39,7 @@ export const Navbar = ({ user, img }) => {
               />
             )}
             <span className="ml-2 text-black font-semibold text-lg">
-              {user}
+              {user ? user : "User"}
             </span>
           </section>
           <section>

@@ -24,6 +24,7 @@ export const Home = () => {
         createAt: serverTimestamp(),
         text: message,
         user: auth.currentUser.displayName,
+        userImg: auth.currentUser.photoURL,
         userId: auth.currentUser.uid,
         likes: {},
       });
@@ -37,7 +38,7 @@ export const Home = () => {
     <section className="flex flex-col items-center  h-screen  ">
       <Navbar
         user={auth.currentUser.displayName}
-        img={auth.currentUser.photoURL}
+        userImg={auth.currentUser.photoURL}
       />
       <section className="max-w-md w-full  mt-8">
         <section className="flex w-full">
@@ -59,12 +60,7 @@ export const Home = () => {
       </section>
       <section className="flex flex-col-reverse gap-10  mt-10 items-center align-middle w-full md:w-1/2 p-5 md:p-0 max-w-3xl">
         {data?.map((d) => (
-          <QuacText
-            key={d.id}
-            d={d}
-            img={auth.currentUser.photoURL}
-            userId={auth.currentUser.email}
-          />
+          <QuacText key={d.id} d={d} />
         ))}
       </section>
     </section>

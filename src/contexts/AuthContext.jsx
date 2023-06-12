@@ -16,8 +16,6 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState("");
   const [loading, setLoading] = useState(true);
 
-  console.log(user);
-
   const singup = (email, password) => {
     createUserWithEmailAndPassword(auth, email, password);
   };

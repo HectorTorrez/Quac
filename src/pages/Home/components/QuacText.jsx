@@ -9,9 +9,9 @@ import ReactNiceAvatar, { genConfig } from "react-nice-avatar";
 import { avatarConfig } from "../../../helpers/avatarConfig";
 
 // eslint-disable-next-line react/prop-types
-export const QuacText = ({ d, img }) => {
+export const QuacText = ({ d }) => {
   // eslint-disable-next-line react/prop-types
-  const { text, user, id, likes, userId } = d;
+  const { text, user, id, likes, userId, userImg } = d;
   const [likeCount, setLikeCount] = useState(Object.keys(likes).length);
 
   const { handleDelete } = useQuacProvider();
@@ -49,8 +49,8 @@ export const QuacText = ({ d, img }) => {
   return (
     <section className="max-w-md  bg-white shadow-md rounded-md p-4 w-full">
       <section className="flex space-x-4  ">
-        {img ? (
-          <img src={img} alt="photo" className="w-12 h-12 rounded-full" />
+        {userImg ? (
+          <img src={userImg} alt="photo" className="w-12 h-12 rounded-full" />
         ) : (
           <ReactNiceAvatar
             style={{ width: "5rem", height: "5rem" }}
@@ -59,7 +59,7 @@ export const QuacText = ({ d, img }) => {
         )}
         <section className="flex justify-between w-full items-center">
           <section className="flex flex-col">
-            <p className="font-bold">{user}</p>
+            <p className="font-bold">{user ? user : "User"}</p>
           </section>
           <section>
             {userId === auth.currentUser.uid && (
