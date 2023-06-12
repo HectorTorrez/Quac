@@ -28,7 +28,11 @@ export const AuthProvider = ({ children }) => {
     signInWithEmailAndPassword(auth, email, password);
   };
 
-  const Logout = () => signOut(auth);
+  const Logout = () => {
+    let confirmLogout = confirm("Are you sure you want to logout?");
+    if (!confirmLogout) return;
+    signOut(auth);
+  };
 
   const resetPassword = (email) => {
     sendPasswordResetEmail(auth, email);
